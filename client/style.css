@@ -1,0 +1,1587 @@
+    * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+
+
+
+
+
+
+        :root {
+            --pink: #E91E63;
+            --pink-light: #F8BBD0;
+            --purple: #9C27B0;
+            --teal: #00897B;
+            --orange: #FF6F00;
+            --peach: #FFCCBC;
+            --mint: #B2DFDB;
+            --lavender: #E1BEE7;
+            --cream: #FFF8E1;
+            --warm-white: #FFFEF7;
+            --charcoal: #37474F;
+            --soft-gray: #78909C;
+        }
+
+
+
+
+
+
+
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            background: linear-gradient(135deg, #FFF9F0 0%, #FFE8E0 50%, #FFF0F5 100%);
+            color: var(--charcoal);
+            min-height: 100vh;
+            position: relative;
+        }
+
+
+
+
+
+
+
+
+        /* Decorative Background Elements */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(233, 30, 99, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+        }
+
+
+
+
+
+
+
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 137, 123, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+
+
+
+
+
+
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+
+
+
+
+
+
+
+        /* Notebook Lines Pattern */
+        .notebook-pattern {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(
+                transparent,
+                transparent 39px,
+                rgba(233, 30, 99, 0.03) 39px,
+                rgba(233, 30, 99, 0.03) 40px
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+
+
+
+
+
+
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+
+
+
+
+
+
+
+        /* Header */
+        header {
+            padding: 3rem 0 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+
+
+
+
+
+
+
+        .bsd {
+            font-size: 0.9rem;
+            color: var(--pink);
+            margin-bottom: 2rem;
+            letter-spacing: 3px;
+            font-weight: 300;
+        }
+
+
+
+
+
+
+
+
+        .logo-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+
+
+
+
+
+
+
+        .logo-decoration {
+            position: absolute;
+            top: -20px;
+            right: -30px;
+            font-size: 3rem;
+            opacity: 0.3;
+            color: var(--pink);
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+
+
+
+
+
+
+
+        .site-title {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 4rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 50%, var(--teal) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+
+
+
+
+
+
+
+        .site-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--pink), transparent);
+            border-radius: 10px;
+        }
+
+
+
+
+
+
+
+
+        .site-subtitle {
+            font-size: 1.1rem;
+            color: var(--soft-gray);
+            font-weight: 400;
+            margin-top: 1.5rem;
+        }
+
+
+
+
+
+
+
+
+        /* Navigation */
+        .nav-container {
+            background: white;
+            border-radius: 25px;
+            padding: 1rem 2rem;
+            box-shadow: 0 10px 40px rgba(233, 30, 99, 0.08);
+            margin: 2rem auto;
+            max-width: 900px;
+            border: 2px solid var(--pink-light);
+        }
+
+
+
+
+
+
+
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+
+
+
+
+
+
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 20px;
+            font-family: 'Rubik', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--charcoal);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+
+
+
+
+
+
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--pink-light) 0%, var(--lavender) 100%);
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+
+
+
+
+
+
+
+        .tab-btn:hover::before,
+        .tab-btn.active::before {
+            opacity: 1;
+        }
+
+
+
+
+
+
+
+
+        .tab-btn.active {
+            color: var(--pink);
+            font-weight: 600;
+        }
+
+
+
+
+
+
+
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+
+
+
+
+
+
+
+        .tab-content.active {
+            display: block;
+        }
+
+
+
+
+
+
+
+
+        /* Recipe Grid */
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+
+
+
+
+
+
+
+
+        .recipe-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(233, 30, 99, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            position: relative;
+            cursor: pointer;
+        }
+
+
+
+
+
+
+
+
+        .recipe-card::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 100%);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.4s ease;
+            z-index: 1;
+        }
+
+
+
+
+
+
+
+
+        .recipe-card:hover::before {
+            opacity: 0.1;
+            transform: scale(10);
+        }
+
+
+
+
+
+
+
+
+        .recipe-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(233, 30, 99, 0.15);
+            border-color: var(--pink-light);
+        }
+
+
+
+
+
+
+
+
+        .recipe-image-wrapper {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--peach) 0%, var(--mint) 100%);
+        }
+
+
+
+
+
+
+
+
+        .recipe-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+
+
+
+
+
+
+
+        .recipe-card:hover .recipe-image {
+            transform: scale(1.1);
+        }
+
+
+
+
+
+
+
+
+        .recipe-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--pink);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+        }
+
+
+
+
+
+
+
+
+        .recipe-content {
+            padding: 2rem;
+        }
+
+
+
+
+
+
+
+
+        .recipe-title {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+
+
+
+
+
+
+
+        .recipe-description {
+            font-size: 1rem;
+            color: var(--soft-gray);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+
+
+
+
+
+
+
+        .recipe-meta {
+            display: flex;
+            gap: 2rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--pink-light);
+            font-size: 0.9rem;
+            color: var(--soft-gray);
+            font-weight: 500;
+        }
+
+
+
+
+
+
+
+
+        .recipe-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+
+
+
+
+
+
+
+        .recipe-actions {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+
+
+
+
+
+
+
+        /* Buttons */
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Rubik', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+
+
+
+
+
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+
+
+
+
+
+
+
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+
+
+
+
+
+
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 100%);
+            color: white;
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.3);
+        }
+
+
+
+
+
+
+
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(233, 30, 99, 0.4);
+        }
+
+
+
+
+
+
+
+
+        .btn-secondary {
+            background: white;
+            color: var(--teal);
+            border: 2px solid var(--teal);
+        }
+
+
+
+
+
+
+
+
+        .btn-secondary:hover {
+            background: var(--teal);
+            color: white;
+        }
+
+
+
+
+
+
+
+
+        .btn-danger {
+            background: white;
+            color: var(--orange);
+            border: 2px solid var(--orange);
+        }
+
+
+
+
+
+
+
+
+        .btn-danger:hover {
+            background: var(--orange);
+            color: white;
+        }
+
+
+
+
+
+
+
+
+        /* Forms */
+        .form-container {
+            max-width: 700px;
+            margin: 3rem auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(233, 30, 99, 0.1);
+            border: 2px solid var(--pink-light);
+        }
+
+
+
+
+
+
+
+
+        .form-title {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-align: center;
+            background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2.5rem;
+        }
+
+
+
+
+
+
+
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+
+
+
+
+
+
+
+        .form-group label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 0.6rem;
+        }
+
+
+
+
+
+
+
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--pink-light);
+            border-radius: 15px;
+            font-family: 'Rubik', sans-serif;
+            font-size: 0.95rem;
+            color: var(--charcoal);
+            background: var(--warm-white);
+            transition: all 0.3s ease;
+        }
+
+
+
+
+
+
+
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--pink);
+            background: white;
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.1);
+        }
+
+
+
+
+
+
+
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+
+
+
+
+
+
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 3rem 1rem;
+        }
+
+
+
+
+
+
+
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+
+
+
+
+
+
+
+        .modal-content {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            padding: 3rem;
+            border-radius: 30px;
+            /* position: relative; */
+            box-shadow: 0 30px 80px rgba(233, 30, 99, 0.15);
+            border: 2px solid var(--pink-light);
+        }
+
+
+
+
+
+
+
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 100%);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.3);
+        }
+
+
+
+
+
+
+
+
+        .modal-close:hover {
+            transform: rotate(90deg) scale(1.1);
+        }
+
+
+
+
+
+
+
+
+        /* Recipe Detail */
+        .recipe-detail-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--pink-light);
+        }
+
+
+
+
+
+
+
+
+        .recipe-detail-category {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--pink-light) 0%, var(--lavender) 100%);
+            color: var(--pink);
+            padding: 0.7rem 2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+
+
+
+
+
+
+
+        .recipe-detail-title {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 3rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+
+
+
+
+
+
+
+        .recipe-detail-image {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 25px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 20px 50px rgba(233, 30, 99, 0.15);
+        }
+
+
+
+
+
+
+
+
+        .recipe-detail-section {
+            margin-bottom: 2.5rem;
+        }
+
+
+
+
+
+
+
+
+        .recipe-detail-section h3 {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--pink);
+            margin-bottom: 1.5rem;
+        }
+
+
+
+
+
+
+
+
+        .recipe-detail-section p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--soft-gray);
+        }
+
+
+
+
+
+
+
+
+        .recipe-detail-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+
+
+
+
+
+
+
+        .recipe-detail-section ul li {
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.8rem;
+            background: linear-gradient(135deg, var(--warm-white) 0%, var(--cream) 100%);
+            border-radius: 15px;
+            border-right: 4px solid var(--pink);
+            font-size: 1rem;
+            color: var(--charcoal);
+            transition: all 0.3s ease;
+        }
+
+
+
+
+
+
+
+
+        .recipe-detail-section ul li:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.1);
+        }
+
+
+
+
+
+
+
+
+        /* AI Chat */
+        .ai-chat-container {
+            max-width: 900px;
+            margin: 3rem auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(233, 30, 99, 0.1);
+            border: 2px solid var(--pink-light);
+        }
+
+
+
+
+
+
+
+
+        .chat-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--pink-light);
+        }
+
+
+
+
+
+
+
+
+        .chat-header h2 {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+
+
+
+
+
+
+
+        .chat-messages {
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 2rem;
+            background: var(--warm-white);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+        }
+
+
+
+
+
+
+
+
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+
+
+
+
+
+
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: var(--pink-light);
+            border-radius: 10px;
+        }
+
+
+
+
+
+
+
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--pink);
+            border-radius: 10px;
+        }
+
+
+
+
+
+
+
+
+        .chat-message {
+            margin-bottom: 1.5rem;
+            padding: 1.2rem 1.8rem;
+            border-radius: 20px;
+            animation: fadeIn 0.4s ease;
+        }
+
+
+
+
+
+
+
+
+        .chat-message.user {
+            background: linear-gradient(135deg, var(--pink-light) 0%, var(--lavender) 100%);
+            border-right: 4px solid var(--pink);
+            margin-left: 3rem;
+        }
+
+
+
+
+
+
+
+
+        .chat-message.ai {
+            background: linear-gradient(135deg, var(--mint) 0%, var(--cream) 100%);
+            border-right: 4px solid var(--teal);
+            margin-right: 3rem;
+        }
+
+
+
+
+
+
+
+
+        .chat-message strong {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+
+
+
+
+
+
+
+        .chat-message.user strong {
+            color: var(--pink);
+        }
+
+
+
+
+
+
+
+
+        .chat-message.ai strong {
+            color: var(--teal);
+        }
+
+
+
+
+
+
+
+
+        .chat-input-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+
+
+
+
+
+
+
+        .chat-input-group input {
+            flex: 1;
+            padding: 1.2rem 2rem;
+            border: 2px solid var(--pink-light);
+            border-radius: 50px;
+            font-family: 'Rubik', sans-serif;
+            font-size: 1rem;
+            background: var(--warm-white);
+            transition: all 0.3s ease;
+        }
+
+
+
+
+
+
+
+
+        .chat-input-group input:focus {
+            outline: none;
+            border-color: var(--pink);
+            background: white;
+        }
+
+
+
+
+
+
+
+
+        /* Category Filter */
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+
+
+
+
+
+
+
+        .category-badge {
+            padding: 1rem 2rem;
+            background: white;
+            border: 2px solid var(--pink-light);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+
+
+
+
+
+
+
+
+        .category-badge:hover,
+        .category-badge.active {
+            background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 100%);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.3);
+        }
+
+
+
+
+
+
+
+
+        /* Loading & Empty */
+        .loading,
+        .empty-state {
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+
+
+
+
+
+
+
+        .loading {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 1.8rem;
+            color: var(--pink);
+        }
+
+
+
+
+
+
+
+
+        .empty-state-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.3;
+        }
+
+
+
+
+
+
+
+
+        .empty-state-title {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--pink);
+            margin-bottom: 1rem;
+        }
+
+
+
+
+
+
+
+
+        .empty-state-text {
+            font-size: 1.1rem;
+            color: var(--soft-gray);
+        }
+
+
+
+
+
+
+
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+
+
+
+
+
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+
+
+
+
+
+
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .recipes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+
+
+
+
+
+
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+
+
+
+
+
+
+
+            .site-title {
+                font-size: 3rem;
+            }
+
+
+
+
+
+
+
+
+            .recipes-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+
+
+
+
+
+
+            .recipe-actions {
+                grid-template-columns: 1fr;
+            }
+
+
+
+
+
+
+
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+
+
+
+
+
+
+
+            .chat-message.user {
+                margin-left: 1rem;
+            }
+
+
+
+
+
+
+
+
+            .chat-message.ai {
+                margin-right: 1rem;
+            }
+        }
+
+
+/* הוספה */
+.dropdown {
+    position: relative;
+}
+
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 50%;
+    transform: translateX(50%) translateY(10px);
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(233, 30, 99, 0.15);
+    border: 2px solid var(--pink-light);
+    min-width: 220px;
+    padding: 0.6rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s ease;
+    z-index: 200;
+}
+
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.7rem 1.4rem;
+    text-decoration: none;
+    color: var(--charcoal);
+    font-weight: 500;
+    border-radius: 12px;
+    margin: 0 0.4rem;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+
+.dropdown-menu a:hover {
+    background: linear-gradient(135deg, var(--pink-light), var(--lavender));
+    color: var(--pink);
+    transform: translateX(-4px);
+}
+
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(50%) translateY(0);
+}
+
+
+
+
+
+
+
+
+       
+

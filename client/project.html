@@ -1,0 +1,164 @@
+
+
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>בס"ד |מתכונים ב-10 דקות</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&family=Varela+Round&display=swap"
+        rel="stylesheet">
+</head>
+
+
+<body>
+    <div class="notebook-pattern"></div>
+
+
+    <div class="container">
+        <header>
+            <div class="bsd">בס״ד</div>
+            <div class="logo-container">
+                <div class="logo-decoration">✿</div>
+                <h1 class="site-title">מתכונים ב-10 דקות</tit< /h1>
+            </div>
+            <p class="site-subtitle">אוסף מתכונים מיוחדים ואהובים</p>
+        </header>
+
+
+
+
+        <div class="nav-container">
+            <nav class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('all-recipes')">כל המתכונים</button>
+
+
+                  <div class="dropdown">
+    <button class="tab-btn dropdown-btn">קטגוריות</button>
+
+
+        <div class="dropdown-menu">
+        <a href="#" onclick="chooseCategory('קינוחים')">🍰 קינוחים</a>
+        <a href="#" onclick="chooseCategory('עוגות')">🎂 עוגות</a>
+        <a href="#" onclick="chooseCategory('ועוגיות')">🍪 עוגיות</a>
+        <a href="#" onclick="chooseCategory('בריא')">🥗 בריא</a>
+    </div>
+
+                <button class="tab-btn" onclick="switchTab('add-recipe')">הוסיפו מתכון</button>
+                <button class="tab-btn" onclick="switchTab('ai-assistant')">עוזר חכם</button>
+            </nav>
+        </div>
+
+        <!-- All Recipes -->
+        <div id="all-recipes" class="tab-content active">
+            <div class="recipes-grid" id="recipes-container">
+                <div class="loading">טוען מתכונים טעימים...</div>
+            </div>
+        </div>
+
+
+        <!-- Categories -->
+        <div id="categories" class="tab-content">
+            <div class="category-filter" id="category-filter"></div>
+            <div class="recipes-grid" id="category-recipes-container">
+                <div class="empty-state">
+                    <div class="empty-state-icon">🎨</div>
+                    <h2 class="empty-state-title">בחרו קטגוריה</h2>
+                    <p class="empty-state-text">בחרו אחת הקטגוריות כדי לראות מתכונים מדהימים</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Add Recipe -->
+        <div id="add-recipe" class="tab-content">
+            <div class="form-container">
+                <h2 class="form-title">מתכון חדש ומיוחד</h2>
+                <form id="add-recipe-form">
+                    <div class="form-group">
+                        <label>שם המתכון</label>
+                        <input type="text" name="name" required placeholder="הזינו שם מתכון...">
+                    </div>
+                    <div class="form-group">
+                        <label>קטגוריה</label>
+                        <select name="category_id" required>
+                            <option value="">בחרו קטגוריה</option>
+                            <option value="קינוחים">🍰 קינוחים</option>
+                            <option value="עוגות">🎂 עוגות</option>
+                            <option value="עוגיותו">🍪 עוגיות</option>
+                            <option value="בריא">🥗 בריא</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>תיאור</label>
+                        <textarea name="description" placeholder="ספרו לנו על המתכון..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>מצרכים</label>
+                        <textarea name="ingredients" required placeholder="מצרך אחד בכל שורה"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>הוראות הכנה</label>
+                        <textarea name="instructions" required placeholder="פרטו את שלבי ההכנה..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>זמן הכנה (דקות)</label>
+                        <input type="number" name="prep_time" min="0" placeholder="45">
+                    </div>
+                    <div class="form-group">
+                        <label>מספר מנות</label>
+                        <input type="number" name="servings" min="1" placeholder="6">
+                    </div>
+                    <div class="form-group">
+                        <label>קישור לתמונה</label>
+                        <input type="url" name="image_url" placeholder="https://...">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">הוסיפו מתכון ✨</button>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- AI Assistant -->
+        <div id="ai-assistant" class="tab-content">
+            <div class="ai-chat-container">
+                <div class="chat-header">
+                    <h2>העוזר החכם שלכם 🤖</h2>
+                    <p>שאלו אותי כל דבר על אפייה, בישול ומתכונים</p>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="chat-message ai">
+                        <strong>העוזר החכם</strong>
+                        <p>שלום וברוכים הבאים! אני כאן לעזור לכם עם כל שאלה על אפייה ומתכונים. אפשר לשאול אותי הכל! 💕
+                        </p>
+                    </div>
+                </div>
+                <div class="chat-input-group">
+                    <input type="text" id="chat-input" placeholder="הקלידו את שאלתכם כאן..."
+                        onkeypress="if(event.key === 'Enter') sendChatMessage()">
+                    <button class="btn btn-primary" onclick="sendChatMessage()">שלחו</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div id="recipe-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div id="recipe-detail-content"></div>
+        </div>
+    </div>
+<script src="script.js"></script>
+</body>
+
+
+</html>
