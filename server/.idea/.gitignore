@@ -3,3 +3,12 @@
 /workspace.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+# Sensitive data
+secret.txt
+
+# Python temporary files
+__pycache__/
+*.pyc
+
+# IDE settings
+.idea/
