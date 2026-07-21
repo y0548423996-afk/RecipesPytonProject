@@ -8,10 +8,12 @@ import urllib3# ספרייה לניהול אזהרות רשת / SSL
 # מבטל אזהרות SSL
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+import os
+
+API_KEY = os.environ.get("API_KEY")
 
 
-
-API_KEY= open("secret.txt").read().strip()
+##API_KEY= open("secret.txt").read().strip()
 GEMINI_URL = (
    "https://generativelanguage.googleapis.com/v1beta/models/"
    "gemini-2.5-flash:generateContent?key=" + API_KEY
