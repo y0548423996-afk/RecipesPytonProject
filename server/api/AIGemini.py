@@ -19,8 +19,7 @@ def ask_gemini_baking(question: str) -> str:
         )
 
     # 2. שימוש במודל נתמך ובניית ה-URL
-    gemini_url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={API_KEY}"
-
+    gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={API_KEY}"
     payload = {
         "contents": [{"role": "user", "parts": [{"text": question}]}],
         "systemInstruction": {
