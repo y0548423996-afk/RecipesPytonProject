@@ -1,5 +1,4 @@
-        const API_BASE_URL = 'http://localhost:8000';
-        let currentRecipes = [];
+const API_BASE_URL = 'https://recipes-server-api-jy79.onrender.com';        let currentRecipes = [];
         let allCategories = new Set();
 
 
