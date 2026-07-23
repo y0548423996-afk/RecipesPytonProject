@@ -1,59 +1,44 @@
-
-
-
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
-
 
 <head>
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בס"ד |מתכונים ב-10 דקות</title>
+    <title>טעמים ב-10 דקות | המטבח הקסום של יהודית שרגא</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&family=Varela+Round&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&family=Varela+Round&display=swap" rel="stylesheet">
 </head>
-
-
 
 <body>
     <div class="notebook-pattern"></div>
-
 
     <div class="container">
         <header>
             <div class="bsd">בס״ד</div>
             <div class="logo-container">
                 <div class="logo-decoration">✿</div>
-                <h1 class="site-title">מתכונים ב-10 דקות</tit< /h1>
+                <h1 class="site-title">טעמים ב-10 דקות</h1>
             </div>
-            <p class="site-subtitle">אוסף מתכונים מיוחדים ואהובים</p>
+            <p class="site-subtitle">המטבח הקסום של יהודית שרגא</p>
         </header>
-
-
-
 
         <div class="nav-container">
             <nav class="nav-tabs">
                 <button class="tab-btn active" onclick="switchTab('all-recipes')">כל המתכונים</button>
 
-
-                  <div class="dropdown">
-    <button class="tab-btn dropdown-btn">קטגוריות</button>
-
-
-        <div class="dropdown-menu">
-        <a href="#" onclick="chooseCategory('קינוחים')">🍰 קינוחים</a>
-        <a href="#" onclick="chooseCategory('עוגות')">🎂 עוגות</a>
-        <a href="#" onclick="chooseCategory('ועוגיות')">🍪 עוגיות</a>
-        <a href="#" onclick="chooseCategory('בריא')">🥗 בריא</a>
-    </div>
+                <div class="dropdown">
+                    <button class="tab-btn dropdown-btn">קטגוריות</button>
+                    <div class="dropdown-menu">
+                        <a href="#" onclick="chooseCategory('קינוחים')">🍰 קינוחים</a>
+                        <a href="#" onclick="chooseCategory('עוגות')">🎂 עוגות</a>
+                        <a href="#" onclick="chooseCategory('עוגיות')">🍪 עוגיות</a>
+                        <a href="#" onclick="chooseCategory('בריא')">🥗 בריא</a>
+                    </div>
+                </div>
 
                 <button class="tab-btn" onclick="switchTab('add-recipe')">הוסיפו מתכון</button>
-                <button class="tab-btn" onclick="switchTab('ai-assistant')">עוזר חכם</button>
             </nav>
         </div>
 
@@ -63,7 +48,6 @@
                 <div class="loading">טוען מתכונים טעימים...</div>
             </div>
         </div>
-
 
         <!-- Categories -->
         <div id="categories" class="tab-content">
@@ -76,7 +60,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- Add Recipe -->
         <div id="add-recipe" class="tab-content">
@@ -93,7 +76,7 @@
                             <option value="">בחרו קטגוריה</option>
                             <option value="קינוחים">🍰 קינוחים</option>
                             <option value="עוגות">🎂 עוגות</option>
-                            <option value="עוגיותו">🍪 עוגיות</option>
+                            <option value="עוגיות">🍪 עוגיות</option>
                             <option value="בריא">🥗 בריא</option>
                         </select>
                     </div>
@@ -125,31 +108,7 @@
                 </form>
             </div>
         </div>
-
-
-        <!-- AI Assistant -->
-        <div id="ai-assistant" class="tab-content">
-            <div class="ai-chat-container">
-                <div class="chat-header">
-                    <h2>העוזר החכם שלכם 🤖</h2>
-                    <p>שאלו אותי כל דבר על אפייה, בישול ומתכונים</p>
-                </div>
-                <div class="chat-messages" id="chat-messages">
-                    <div class="chat-message ai">
-                        <strong>העוזר החכם</strong>
-                        <p>שלום וברוכים הבאים! אני כאן לעזור לכם עם כל שאלה על אפייה ומתכונים. אפשר לשאול אותי הכל! 💕
-                        </p>
-                    </div>
-                </div>
-                <div class="chat-input-group">
-                    <input type="text" id="chat-input" placeholder="הקלידו את שאלתכם כאן..."
-                        onkeypress="if(event.key === 'Enter') sendChatMessage()">
-                    <button class="btn btn-primary" onclick="sendChatMessage()">שלחו</button>
-                </div>
-            </div>
-        </div>
     </div>
-
 
     <!-- Modal -->
     <div id="recipe-modal" class="modal">
@@ -158,8 +117,43 @@
             <div id="recipe-detail-content"></div>
         </div>
     </div>
-<script src="script.js"></script>
-</body>
 
+    <!-- כפתור צ'אט צף -->
+    <button class="chat-toggle-btn" onclick="toggleChat()">
+        🤖
+    </button>
+
+    <!-- חלון הצאט הנייד -->
+    <div id="ai-chat-popup" class="chat-popup">
+        <div class="chat-header">
+            <h2>העוזר החכם 🤖</h2>
+            <button class="close-chat" onclick="toggleChat()">✕</button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="chat-message ai">
+                <strong>העוזר החכם</strong>
+                <p>שלום וברוכים הבאים! אני כאן לעזור לכם עם כל שאלה על אפייה ומתכונים. אפשר לשאול אותי הכל! 💕</p>
+            </div>
+        </div>
+        <div class="chat-input-group">
+            <input type="text" id="chat-input" placeholder="הקלידו את שאלתכם כאן..." onkeypress="if(event.key === 'Enter') sendChatMessage()">
+            <button class="btn btn-primary" onclick="sendChatMessage()">שלחו</button>
+        </div>
+    </div>
+
+    <!-- פוטר מקצועי -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p class="footer-title">מבשלים באהבה 🍳</p>
+            <p>האתר נוצר על ידי <strong>יהודית שרגא</strong></p>
+            <div class="footer-contact">
+                <span>✉️ y0548423996@gmail.com</span> | 
+                <span>📞 054-8423996</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
 
 </html>
