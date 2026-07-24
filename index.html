@@ -5,10 +5,10 @@
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>טעמים ב-10 דקות | המטבח הקסום של יהודית שרגא</title>
+    <title>יהודית שרגא | המטבח שמאיר לכם את הדרך</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&family=Varela+Round&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -18,10 +18,10 @@
         <header>
             <div class="bsd">בס״ד</div>
             <div class="logo-container">
-                <div class="logo-decoration">✿</div>
-                <h1 class="site-title">טעמים ב-10 דקות</h1>
+              
+                <h1 class="site-title">יהודית שרגא</h1>
             </div>
-            <p class="site-subtitle">המטבח הקסום של יהודית שרגא</p>
+            <p class="site-subtitle">המטבח שמאיר לכם את הדרך</p>
         </header>
 
         <div class="nav-container">
@@ -119,14 +119,33 @@
     </div>
 
     <!-- כפתור צ'אט צף -->
-    <button class="chat-toggle-btn" onclick="toggleChat()">
-        🤖
+    <button class="chat-toggle-btn" onclick="toggleChat()" aria-label="פתחו את העוזר החכם">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 16h30a8 8 0 018 8v14a8 8 0 01-8 8H30l-8 8v-8h-2a8 8 0 01-8-8V24a8 8 0 018-8z" fill="var(--rose-light)"/>
+            <path d="M14 10h28a8 8 0 018 8v12a8 8 0 01-8 8H22l-8 8v-8a8 8 0 01-8-8V18a8 8 0 018-8z" fill="var(--rose)"/>
+            <rect x="18" y="18" width="24" height="16" rx="8" fill="#fff"/>
+            <circle cx="26" cy="26" r="3" fill="var(--ink)"/>
+            <circle cx="34" cy="26" r="3" fill="var(--ink)"/>
+            <circle cx="30" cy="10" r="2.5" fill="var(--gold)"/>
+            <line x1="30" y1="12" x2="30" y2="18" stroke="var(--gold)" stroke-width="2"/>
+        </svg>
     </button>
 
     <!-- חלון הצאט הנייד -->
     <div id="ai-chat-popup" class="chat-popup">
         <div class="chat-header">
-            <h2>העוזר החכם 🤖</h2>
+            <div class="chat-header-title">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 16h30a8 8 0 018 8v14a8 8 0 01-8 8H30l-8 8v-8h-2a8 8 0 01-8-8V24a8 8 0 018-8z" fill="rgba(255,255,255,0.35)"/>
+                    <path d="M14 10h28a8 8 0 018 8v12a8 8 0 01-8 8H22l-8 8v-8a8 8 0 01-8-8V18a8 8 0 018-8z" fill="#fff"/>
+                    <rect x="18" y="18" width="24" height="16" rx="8" fill="var(--rose-deep)"/>
+                    <circle cx="26" cy="26" r="3" fill="#fff"/>
+                    <circle cx="34" cy="26" r="3" fill="#fff"/>
+                    <circle cx="30" cy="10" r="2.5" fill="var(--gold)"/>
+                    <line x1="30" y1="12" x2="30" y2="18" stroke="var(--gold)" stroke-width="2"/>
+                </svg>
+                <h2>העוזר החכם</h2>
+            </div>
             <button class="close-chat" onclick="toggleChat()">✕</button>
         </div>
         <div class="chat-messages" id="chat-messages">
@@ -144,10 +163,12 @@
     <!-- פוטר מקצועי -->
     <footer class="site-footer">
         <div class="footer-content">
-            <p class="footer-title">מבשלים באהבה 🍳</p>
-            <p>האתר נוצר על ידי <strong>יהודית שרגא</strong></p>
+            
+            <div class="footer-divider"></div>
+              <p class="footer-title"><span>האתר נוצר על ידי יהודית שרגא</span></p>
+          
             <div class="footer-contact">
-                <span>✉️ y0548423996@gmail.com</span> | 
+                <span>✉️ y0548423996@gmail.com</span>
                 <span>📞 054-8423996</span>
             </div>
         </div>
