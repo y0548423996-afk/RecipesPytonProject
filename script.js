@@ -149,28 +149,41 @@ function closeModal() { document.getElementById('recipe-modal').classList.remove
 async function addRecipe() {
     const form = document.getElementById('add-recipe-form');
     const formData = new FormData(form);
+    
+    // חילוץ בטוח של קטגוריה וזמן הכנה
+    const categoryValue = formData.get('category_id') || formData.get('category') || "";
+    const prepTimeValue = parseInt(formData.get('prep_time')) || parseInt(formData.get('prep_time_minutes')) || 0;
+
     const recipe = {
         name: formData.get('name'),
-        category: formData.get('category_id'),
+        category: categoryValue,
         description: formData.get('description') || "",
-        ingredients: formData.get('ingredients').split('\n').filter(i => i.trim()),
-        instructions: formData.get('instructions'),
-        prep_time_minutes: parseInt(formData.get('prep_time')) || 0,
+        ingredients: formData.get('ingredients') ? formData.get('ingredients').split('\n').filter(i => i.trim()) : [],
+        instructions: formData.get('instructions') || "",
+        prep_time: prepTimeValue, // תואם למה שהשרת מחזיר ב-viewRecipe
         servings: parseInt(formData.get('servings')) || 0,
         image_url: formData.get('image_url') || ""
     };
+
     try {
         const response = await fetch(`${API_BASE_URL}/recipes`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(recipe)
         });
-        if (!response.ok) throw new Error('שגיאה');
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.detail ? JSON.stringify(errorData.detail) : `קוד שגיאה: ${response.status}`);
+        }
+
         alert('המתכון נוסף בהצלחה! ✨');
         form.reset();
         await loadAllRecipes();
         switchTab('all-recipes');
-    } catch (error) { alert('שגיאה: ' + error.message); }
+    } catch (error) { 
+        alert('שגיאה בהוספת המתכון: ' + error.message); 
+    }
 }
 
 async function editRecipe(id) {
