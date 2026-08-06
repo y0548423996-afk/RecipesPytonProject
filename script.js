@@ -166,7 +166,8 @@ async function addRecipe() {
     };
 
     try {
-        const response = await fetch(`${API_BASE_URL}/recipes`, {
+       
+        const response = await  fetch(`${API_BASE_URL}/recipes`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(recipe)
