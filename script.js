@@ -150,7 +150,6 @@ async function addRecipe() {
     const form = document.getElementById('add-recipe-form');
     const formData = new FormData(form);
     
-    // חילוץ בטוח של קטגוריה וזמן הכנה
     const categoryValue = formData.get('category_id') || formData.get('category') || "";
     const prepTimeValue = parseInt(formData.get('prep_time')) || parseInt(formData.get('prep_time_minutes')) || 0;
 
@@ -160,14 +159,13 @@ async function addRecipe() {
         description: formData.get('description') || "",
         ingredients: formData.get('ingredients') ? formData.get('ingredients').split('\n').filter(i => i.trim()) : [],
         instructions: formData.get('instructions') || "",
-        prep_time: prepTimeValue, // תואם למה שהשרת מחזיר ב-viewRecipe
+        prep_time_minutes: prepTimeValue, // חזרה לשם שהשרת דורש!
         servings: parseInt(formData.get('servings')) || 0,
         image_url: formData.get('image_url') || ""
     };
 
     try {
-       
-        const response = await  fetch(`${API_BASE_URL}/recipes`, {
+        const response = await fetch(`${API_BASE_URL}/recipes`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(recipe)
