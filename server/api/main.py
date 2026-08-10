@@ -12,7 +12,7 @@ from db.db import (
     delete_recipe
 )
 import traceback
-
+from db.db import get_connection
 app = FastAPI()
 
 # ===================== CORS =====================
@@ -77,14 +77,13 @@ def create_recipe(recipe: Recipe):
             recipe.prep_time_minutes,
             recipe.servings,
             recipe.image_url,
-            recipe.category
+            recipe.category_id  # <--- לשנות מ-recipe.category ל-recipe.category_id
         )
         if not success:
             raise ValueError("קטגוריה לא קיימת")
         return {"message": "Recipe added successfully"}
     except Exception as e:
         handle_exception(e)
-
 @app.put("/recipes/{recipe_id}")
 def update_recipe(recipe_id, updated_data):
     """עדכון מתכון קיים לפי מזהה"""
