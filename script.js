@@ -150,20 +150,19 @@ async function addRecipe() {
     const form = document.getElementById('add-recipe-form');
     const formData = new FormData(form);
     
-    // המרה לערך מספרי (ID)
     const categoryId = parseInt(formData.get('category_id')) || 0;
     const prepTimeValue = parseInt(formData.get('prep_time')) || parseInt(formData.get('prep_time_minutes')) || 0;
 
-   const recipe = {
-    name: formData.get('name'),
-    category: categoryId, // שנה/י מ-category_id ל-category
-    description: formData.get('description') || "",
-    ingredients: formData.get('ingredients') ? formData.get('ingredients').split('\n').filter(i => i.trim()) : [],
-    instructions: formData.get('instructions') || "",
-    prep_time_minutes: prepTimeValue,
-    servings: parseInt(formData.get('servings')) || 0,
-    image_url: formData.get('image_url') || ""
-};
+    const recipe = {
+        name: formData.get('name'),
+        category_id: categoryId, // שליחת category_id מספרי לשרת
+        description: formData.get('description') || "",
+        ingredients: formData.get('ingredients') ? formData.get('ingredients').split('\n').filter(i => i.trim()) : [],
+        instructions: formData.get('instructions') || "",
+        prep_time_minutes: prepTimeValue,
+        servings: parseInt(formData.get('servings')) || 0,
+        image_url: formData.get('image_url') || ""
+    };
 
     try {
         const response = await fetch(`${API_BASE_URL}/recipes`, {

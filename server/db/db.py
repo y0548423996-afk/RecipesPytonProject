@@ -94,17 +94,17 @@ def get_recipes_by_category(category_name):
         conn.close()
 
 
-def add_recipe(name, description, ingredients, instructions, prep_time_minutes, servings, image_url, category):
-    """הוספת מתכון חדש"""
+def add_recipe(name, description, ingredients, instructions, prep_time_minutes, servings, image_url, category_id):
+    """הוספת מתכון חדש עם category_id"""
     conn = get_connection()
     cursor = conn.cursor()
     try:
         query = """
-            INSERT INTO recipes (name, description, ingredients, instructions, prep_time_minutes, servings, image_url, category)
+            INSERT INTO recipes (name, description, ingredients, instructions, prep_time_minutes, servings, image_url, category_id)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
             RETURNING id;
         """
-        cursor.execute(query, (name, description, ingredients, instructions, prep_time_minutes, servings, image_url, category))
+        cursor.execute(query, (name, description, ingredients, instructions, prep_time_minutes, servings, image_url, category_id))
         conn.commit()
         return True
     except Exception as e:
