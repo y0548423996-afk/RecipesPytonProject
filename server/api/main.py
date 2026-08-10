@@ -86,15 +86,37 @@ def create_recipe(recipe: Recipe):
         handle_exception(e)
 
 @app.put("/recipes/{recipe_id}")
-def update_recipe_endpoint(recipe_id: int, recipe: Recipe):
+def update_recipe(recipe_id, updated_data):
+    """עדכון מתכון קיים לפי מזהה"""
+    conn = get_connection()
+    cursor = conn.cursor()
     try:
-        updated_data = recipe.model_dump()
-        success = update_recipe(recipe_id, updated_data)
-        if not success:
-            raise KeyError(f"מתכון עם id {recipe_id} לא נמצא")
-        return {"message": "המתכון עודכן בהצלחה"}
+        query = """
+            UPDATE recipes
+            SET name = %s, description = %s, ingredients = %s, instructions = %s,
+                prep_time_minutes = %s, servings = %s, image_url = %s, category_id = %s
+            WHERE id = %s;
+        """
+        cursor.execute(query, (
+            updated_data.get('name'),
+            updated_data.get('description'),
+            updated_data.get('ingredients'),
+            updated_data.get('instructions'),
+            updated_data.get('prep_time_minutes'),
+            updated_data.get('servings'),
+            updated_data.get('image_url'),
+            updated_data.get('category_id'),  # <--- לוודא שכתוב category_id ולא category
+            recipe_id
+        ))
+        conn.commit()
+        return cursor.rowcount > 0
     except Exception as e:
-        handle_exception(e)
+        print(f"Error updating recipe {recipe_id}:", e)
+        conn.rollback()
+        return False
+    finally:
+        cursor.close()
+        conn.close()
 
 @app.delete("/recipes/{recipe_id}")
 def delete_recipe_api(recipe_id: int):
