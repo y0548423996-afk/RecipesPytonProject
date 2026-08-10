@@ -150,16 +150,17 @@ async function addRecipe() {
     const form = document.getElementById('add-recipe-form');
     const formData = new FormData(form);
     
-    const categoryValue = formData.get('category_id') || formData.get('category') || "";
+    // המרה לערך מספרי (ID)
+    const categoryId = parseInt(formData.get('category_id')) || 0;
     const prepTimeValue = parseInt(formData.get('prep_time')) || parseInt(formData.get('prep_time_minutes')) || 0;
 
     const recipe = {
         name: formData.get('name'),
-        category: categoryValue,
+        category_id: categoryId, // שליחת ID מספרי במקום מחרוזת
         description: formData.get('description') || "",
         ingredients: formData.get('ingredients') ? formData.get('ingredients').split('\n').filter(i => i.trim()) : [],
         instructions: formData.get('instructions') || "",
-        prep_time_minutes: prepTimeValue, // חזרה לשם שהשרת דורש!
+        prep_time_minutes: prepTimeValue,
         servings: parseInt(formData.get('servings')) || 0,
         image_url: formData.get('image_url') || ""
     };
@@ -232,7 +233,7 @@ async function testUpdateRecipe(id) {
             instructions: formData.get('instructions'),
             prep_time_minutes: parseInt(formData.get('prep_time')) || 0,
             servings: parseInt(formData.get('servings')) || 0,
-            category: formData.get('category_id'),
+            category_id: parseInt(formData.get('category_id')) || 0, // המרה ל-ID מספרי
             image_url: formData.get('image_url') || ""
         };
 

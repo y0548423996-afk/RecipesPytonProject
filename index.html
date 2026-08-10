@@ -8,7 +8,9 @@
     <title>יהודית שרגא | המטבח שמאיר לכם את הדרך</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Assistant:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -18,7 +20,7 @@
         <header>
             <div class="bsd">בס״ד</div>
             <div class="logo-container">
-              
+
                 <h1 class="site-title">יהודית שרגא</h1>
             </div>
             <p class="site-subtitle">המטבח שמאיר לכם את הדרך</p>
@@ -74,10 +76,10 @@
                         <label>קטגוריה</label>
                         <select name="category_id" required>
                             <option value="">בחרו קטגוריה</option>
-                            <option value="קינוחים">🍰 קינוחים</option>
-                            <option value="עוגות">🎂 עוגות</option>
-                            <option value="עוגיות">🍪 עוגיות</option>
-                            <option value="בריא">🥗 בריא</option>
+                            <option value="1">🍰 קינוחים</option>
+                            <option value="2">🎂 עוגות</option>
+                            <option value="3">🍪 עוגיות</option>
+                            <option value="4">🥗 בריא</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -121,13 +123,15 @@
     <!-- כפתור צ'אט צף -->
     <button class="chat-toggle-btn" onclick="toggleChat()" aria-label="פתחו את העוזר החכם">
         <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 16h30a8 8 0 018 8v14a8 8 0 01-8 8H30l-8 8v-8h-2a8 8 0 01-8-8V24a8 8 0 018-8z" fill="var(--rose-light)"/>
-            <path d="M14 10h28a8 8 0 018 8v12a8 8 0 01-8 8H22l-8 8v-8a8 8 0 01-8-8V18a8 8 0 018-8z" fill="var(--rose)"/>
-            <rect x="18" y="18" width="24" height="16" rx="8" fill="#fff"/>
-            <circle cx="26" cy="26" r="3" fill="var(--ink)"/>
-            <circle cx="34" cy="26" r="3" fill="var(--ink)"/>
-            <circle cx="30" cy="10" r="2.5" fill="var(--gold)"/>
-            <line x1="30" y1="12" x2="30" y2="18" stroke="var(--gold)" stroke-width="2"/>
+            <path d="M20 16h30a8 8 0 018 8v14a8 8 0 01-8 8H30l-8 8v-8h-2a8 8 0 01-8-8V24a8 8 0 018-8z"
+                fill="var(--rose-light)" />
+            <path d="M14 10h28a8 8 0 018 8v12a8 8 0 01-8 8H22l-8 8v-8a8 8 0 01-8-8V18a8 8 0 018-8z"
+                fill="var(--rose)" />
+            <rect x="18" y="18" width="24" height="16" rx="8" fill="#fff" />
+            <circle cx="26" cy="26" r="3" fill="var(--ink)" />
+            <circle cx="34" cy="26" r="3" fill="var(--ink)" />
+            <circle cx="30" cy="10" r="2.5" fill="var(--gold)" />
+            <line x1="30" y1="12" x2="30" y2="18" stroke="var(--gold)" stroke-width="2" />
         </svg>
     </button>
 
@@ -136,13 +140,15 @@
         <div class="chat-header">
             <div class="chat-header-title">
                 <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 16h30a8 8 0 018 8v14a8 8 0 01-8 8H30l-8 8v-8h-2a8 8 0 01-8-8V24a8 8 0 018-8z" fill="rgba(255,255,255,0.35)"/>
-                    <path d="M14 10h28a8 8 0 018 8v12a8 8 0 01-8 8H22l-8 8v-8a8 8 0 01-8-8V18a8 8 0 018-8z" fill="#fff"/>
-                    <rect x="18" y="18" width="24" height="16" rx="8" fill="var(--rose-deep)"/>
-                    <circle cx="26" cy="26" r="3" fill="#fff"/>
-                    <circle cx="34" cy="26" r="3" fill="#fff"/>
-                    <circle cx="30" cy="10" r="2.5" fill="var(--gold)"/>
-                    <line x1="30" y1="12" x2="30" y2="18" stroke="var(--gold)" stroke-width="2"/>
+                    <path d="M20 16h30a8 8 0 018 8v14a8 8 0 01-8 8H30l-8 8v-8h-2a8 8 0 01-8-8V24a8 8 0 018-8z"
+                        fill="rgba(255,255,255,0.35)" />
+                    <path d="M14 10h28a8 8 0 018 8v12a8 8 0 01-8 8H22l-8 8v-8a8 8 0 01-8-8V18a8 8 0 018-8z"
+                        fill="#fff" />
+                    <rect x="18" y="18" width="24" height="16" rx="8" fill="var(--rose-deep)" />
+                    <circle cx="26" cy="26" r="3" fill="#fff" />
+                    <circle cx="34" cy="26" r="3" fill="#fff" />
+                    <circle cx="30" cy="10" r="2.5" fill="var(--gold)" />
+                    <line x1="30" y1="12" x2="30" y2="18" stroke="var(--gold)" stroke-width="2" />
                 </svg>
                 <h2>העוזר החכם</h2>
             </div>
@@ -155,7 +161,8 @@
             </div>
         </div>
         <div class="chat-input-group">
-            <input type="text" id="chat-input" placeholder="הקלידו את שאלתכם כאן..." onkeypress="if(event.key === 'Enter') sendChatMessage()">
+            <input type="text" id="chat-input" placeholder="הקלידו את שאלתכם כאן..."
+                onkeypress="if(event.key === 'Enter') sendChatMessage()">
             <button class="btn btn-primary" onclick="sendChatMessage()">שלחו</button>
         </div>
     </div>
@@ -163,10 +170,10 @@
     <!-- פוטר מקצועי -->
     <footer class="site-footer">
         <div class="footer-content">
-            
+
             <div class="footer-divider"></div>
-              <p class="footer-title"><span>האתר נוצר על ידי יהודית שרגא</span></p>
-          
+            <p class="footer-title"><span>האתר נוצר על ידי יהודית שרגא</span></p>
+
             <div class="footer-contact">
                 <span>✉️ y0548423996@gmail.com</span>
                 <span>📞 054-8423996</span>
