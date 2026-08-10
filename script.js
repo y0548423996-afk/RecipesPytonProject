@@ -150,18 +150,20 @@ async function addRecipe() {
     const form = document.getElementById('add-recipe-form');
     const formData = new FormData(form);
     
+    // חילוץ והמרה למספרים בלבד
     const categoryId = parseInt(formData.get('category_id')) || 0;
     const prepTimeValue = parseInt(formData.get('prep_time')) || parseInt(formData.get('prep_time_minutes')) || 0;
+    const servingsValue = parseInt(formData.get('servings')) || 0;
 
     const recipe = {
-        name: formData.get('name'),
-        category_id: categoryId, // שליחת category_id מספרי לשרת
+        name: formData.get('name') || "",
         description: formData.get('description') || "",
         ingredients: formData.get('ingredients') ? formData.get('ingredients').split('\n').filter(i => i.trim()) : [],
         instructions: formData.get('instructions') || "",
         prep_time_minutes: prepTimeValue,
-        servings: parseInt(formData.get('servings')) || 0,
-        image_url: formData.get('image_url') || ""
+        servings: servingsValue,
+        image_url: formData.get('image_url') || "",
+        category_id: categoryId // חייב להיות מתאים ל-Pydantic וללהיות מספר
     };
 
     try {
@@ -173,7 +175,8 @@ async function addRecipe() {
 
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
-            throw new Error(errorData.detail ? JSON.stringify(errorData.detail) : `קוד שגיאה: ${response.status}`);
+            console.error("Server Error details:", errorData);
+            throw new Error(errorData.detail ? JSON.stringify(errorData.detail) : `שגיאה ${response.status}`);
         }
 
         alert('המתכון נוסף בהצלחה! ✨');

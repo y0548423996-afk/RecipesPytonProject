@@ -95,7 +95,6 @@ def get_recipes_by_category(category_name):
 
 
 def add_recipe(name, description, ingredients, instructions, prep_time_minutes, servings, image_url, category_id):
-    """הוספת מתכון חדש עם category_id"""
     conn = get_connection()
     cursor = conn.cursor()
     try:
