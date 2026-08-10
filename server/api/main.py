@@ -77,10 +77,10 @@ def create_recipe(recipe: Recipe):
             recipe.prep_time_minutes,
             recipe.servings,
             recipe.image_url,
-            recipe.category_id  # <--- לשנות מ-recipe.category ל-recipe.category_id
+            recipe.category_id  # <--- השינוי המרכזי: category_id במקום category
         )
         if not success:
-            raise ValueError("קטגוריה לא קיימת")
+            raise ValueError("שגיאה בהוספת המתכון")
         return {"message": "Recipe added successfully"}
     except Exception as e:
         handle_exception(e)
