@@ -106,15 +106,23 @@ def delete_recipe_api(recipe_id: int):
     except Exception as e:
         handle_exception(e)
 
-@app.post("/chat")
-def ask(question: str = Body(..., embed=True)):
+@app.post("/recipes")
+def create_recipe(recipe: Recipe):
     try:
-        return {
-            "question": question,
-            "answer": ask_gemini_baking(question)
-        }
+        success = add_recipe(
+            recipe.name,
+            recipe.description,
+            recipe.ingredients,
+            recipe.instructions,
+            recipe.prep_time_minutes,
+            recipe.servings,
+            recipe.image_url,
+            recipe.category_id  # <--- לשנות מ-recipe.category ל-recipe.category_id
+        )
+        if not success:
+            raise ValueError("קטגוריה לא קיימת")
+        return {"message": "Recipe added successfully"}
     except Exception as e:
         handle_exception(e)
-
 if __name__ == "__main__":
     uvicorn.run(app=app, host="127.0.0.1", port=8000)

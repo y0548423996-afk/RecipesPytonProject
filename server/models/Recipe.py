@@ -10,4 +10,4 @@ class Recipe(BaseModel):
     prep_time_minutes: int
     servings: int
     image_url: Optional[str] = None
-    category_id: int  # שימי לב: category_id כמספר!
+    category_id: int  # מוגדר כאן category_id
