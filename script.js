@@ -228,16 +228,19 @@ async function testUpdateRecipe(id) {
         const form = document.getElementById('add-recipe-form');
         const formData = new FormData(form);
 
-const recipe = {
-    name: formData.get('name') || "",
-    description: formData.get('description') || "",
-    ingredients: formData.get('ingredients') ? formData.get('ingredients').split('\n').filter(i => i.trim()) : [],
-    instructions: formData.get('instructions') || "",
-    prep_time_minutes: parseInt(formData.get('prep_time')) || parseInt(formData.get('prep_time_minutes')) || 0,
-    servings: parseInt(formData.get('servings')) || 0,
-    image_url: formData.get('image_url') || "",
-    category_id: parseInt(formData.get('category_id')) || 0 // <--- חייב להיות category_id
-};
+        const categoryId = parseInt(formData.get('category_id')) || 0;
+        const prepTimeValue = parseInt(formData.get('prep_time')) || parseInt(formData.get('prep_time_minutes')) || 0;
+
+        const updatedData = {
+            name: formData.get('name'),
+            description: formData.get('description') || "",
+            ingredients: formData.get('ingredients') ? formData.get('ingredients').split('\n').filter(i => i.trim()) : [],
+            instructions: formData.get('instructions') || "",
+            prep_time_minutes: prepTimeValue,
+            servings: parseInt(formData.get('servings')) || 0,
+            category_id: categoryId,
+            image_url: formData.get('image_url') || ""
+        };
 
         const response = await fetch(`${API_BASE_URL}/recipes/${id}`, {
             method: 'PUT',
