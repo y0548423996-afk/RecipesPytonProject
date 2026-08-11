@@ -258,7 +258,6 @@ async function testUpdateRecipe(id) {
         alert("חלה שגיאה: " + error.message);
     }
 }
-
 async function sendChatMessage() {
     const input = document.getElementById('chat-input');
     const message = input.value.trim();
