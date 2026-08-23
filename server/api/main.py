@@ -117,6 +117,20 @@ def update_recipe(recipe_id, updated_data):
         cursor.close()
         conn.close()
 
+
+@app.post("/chat")
+def chat_endpoint(payload: dict = Body(...)):
+    try:
+        question = payload.get("question")
+        if not question:
+            raise HTTPException(status_code=400, detail="שאלה חסרה")
+
+        # קריאה לפונקציית הבוט/Gemini שלך
+        answer = ask_gemini_baking(question)
+        return {"answer": answer}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.delete("/recipes/{recipe_id}")
 def delete_recipe_api(recipe_id: int):
     try:
