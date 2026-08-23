@@ -200,7 +200,8 @@ async function editRecipe(id) {
         const submitBtn = form.querySelector('button[type="submit"]');
 
         form.elements.name.value = recipe.name || '';
-        form.elements.category_id.value = recipe.category || recipe.category_id || '';
+        // שינוי קריטי: שימוש ב-category_id בלבד
+        form.elements.category_id.value = recipe.category_id || ''; 
         form.elements.description.value = recipe.description || '';
         form.elements.ingredients.value = Array.isArray(recipe.ingredients) ? recipe.ingredients.join('\n') : (recipe.ingredients || '');
         form.elements.instructions.value = recipe.instructions || '';
@@ -232,9 +233,9 @@ async function testUpdateRecipe(id) {
         const prepTimeValue = parseInt(formData.get('prep_time')) || parseInt(formData.get('prep_time_minutes')) || 0;
 
         const updatedData = {
-            name: formData.get('name'),
+            name: formData.get('name') || "",
             description: formData.get('description') || "",
-            ingredients: formData.get('ingredients') ? formData.get('ingredients').split('\n').filter(i => i.trim()) : [],
+            ingredients: formData.get('ingredients') ? formData.get('ingredients').split('\n').map(i => i.trim()).filter(i => i.length > 0) : [],
             instructions: formData.get('instructions') || "",
             prep_time_minutes: prepTimeValue,
             servings: parseInt(formData.get('servings')) || 0,
@@ -248,7 +249,11 @@ async function testUpdateRecipe(id) {
             body: JSON.stringify(updatedData)
         });
 
-        if (!response.ok) throw new Error('שגיאה בעדכון המתכון מול השרת');
+        if (!response.ok) {
+            const errorDetails = await response.json().catch(() => ({}));
+            console.error("422 Error Details:", errorDetails);
+            throw new Error(errorDetails.detail ? JSON.stringify(errorDetails.detail) : 'שגיאה בעדכון המתכון מול השרת');
+        }
 
         alert("השינויים נשמרו בהצלחה! 🎉");
         resetFormToAddMode();
