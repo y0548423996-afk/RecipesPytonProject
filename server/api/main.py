@@ -145,5 +145,16 @@ def create_recipe(recipe: Recipe):
         return {"message": "Recipe added successfully"}
     except Exception as e:
         handle_exception(e)
+
+        @app.post("/chat")
+        def chat_endpoint(payload: dict = Body(...)):
+            try:
+                question = payload.get("question")
+                if not question:
+                    raise ValueError("שאלה חסרה")
+                answer = ask_gemini_baking(question)
+                return {"answer": answer}
+            except Exception as e:
+                handle_exception(e)
 if __name__ == "__main__":
     uvicorn.run(app=app, host="127.0.0.1", port=8000)
