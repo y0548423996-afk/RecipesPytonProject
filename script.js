@@ -1,5 +1,41 @@
 const API_BASE_URL = 'https://recipespytonproject.onrender.com';
 
+const CATEGORY_BY_ID = {
+    1: 'קינוחים',
+    2: 'עוגות',
+    3: 'עוגיות',
+    4: 'בריא'
+};
+
+const CATEGORY_NAME_TO_ID = {
+    'קינוחים': 1,
+    'עוגות': 2,
+    'עוגיות': 3,
+    'בריא': 4
+};
+
+function normalizeCategoryId(value) {
+    if (value === null || value === undefined || value === '') return 0;
+    const numericValue = Number(value);
+    if (Number.isInteger(numericValue) && numericValue > 0) return numericValue;
+    const normalizedName = String(value).trim();
+    return CATEGORY_NAME_TO_ID[normalizedName] || 0;
+}
+
+function normalizeIngredients(value) {
+    if (Array.isArray(value)) return value.map(item => String(item).trim()).filter(Boolean);
+    if (!value) return [];
+    if (typeof value !== 'string') return [String(value)];
+
+    try {
+        const parsed = JSON.parse(value);
+        if (Array.isArray(parsed)) return normalizeIngredients(parsed);
+    } catch (_) {
+        // Older records may contain plain text instead of JSON.
+    }
+    return value.split(/\r?\n|,\s*/).map(item => item.trim()).filter(Boolean);
+}
+
 let currentRecipes = [];
 let allCategories = new Set();
 
@@ -103,7 +139,7 @@ function displayRecipes(recipes, containerId) {
                 <h3 class="recipe-title">${recipe.name}</h3>
                 <p class="recipe-description">${recipe.description || 'מתכון טעים ומיוחד'}</p>
                 <div class="recipe-meta">
-                    ${recipe.prep_time ? `<span>⏱️ ${recipe.prep_time} דקות</span>` : ''}
+                    ${recipe.prep_time_minutes ? `<span>⏱️ ${recipe.prep_time_minutes} דקות</span>` : ''}
                     ${recipe.servings ? `<span>👥 ${recipe.servings} מנות</span>` : ''}
                 </div>
                 <div class="recipe-actions">
@@ -121,9 +157,9 @@ async function viewRecipe(id) {
         const response = await fetch(`${API_BASE_URL}/recipes/${id}`);
         if (!response.ok) throw new Error('שגיאה');
         const recipe = await response.json();
-        const ingredientsList = Array.isArray(recipe.ingredients) ?
-            recipe.ingredients.map(ing => `<li>${ing}</li>`).join('') :
-            recipe.ingredients ? `<li>${recipe.ingredients}</li>` : '';
+        const ingredientsList = normalizeIngredients(recipe.ingredients)
+            .map(ingredient => `<li>${ingredient}</li>`)
+            .join('');
         document.getElementById('recipe-detail-content').innerHTML = `
             <div class="recipe-detail">
                 <div class="recipe-detail-header">
@@ -134,8 +170,8 @@ async function viewRecipe(id) {
                 ${recipe.description ? `<div class="recipe-detail-section"><p>${recipe.description}</p></div>` : ''}
                 <div class="recipe-detail-section"><h3>מצרכים</h3><ul>${ingredientsList}</ul></div>
                 <div class="recipe-detail-section"><h3>הוראות הכנה</h3><p>${recipe.instructions || ''}</p></div>
-                ${recipe.prep_time || recipe.servings ? `<div class="recipe-meta" style="justify-content: center; border: none;">
-                    ${recipe.prep_time ? `<span>⏱️ ${recipe.prep_time} דקות</span>` : ''}
+                ${recipe.prep_time_minutes || recipe.servings ? `<div class="recipe-meta" style="justify-content: center; border: none;">
+                    ${recipe.prep_time_minutes ? `<span>⏱️ ${recipe.prep_time_minutes} דקות</span>` : ''}
                     ${recipe.servings ? `<span>👥 ${recipe.servings} מנות</span>` : ''}
                 </div>` : ''}
             </div>
@@ -151,7 +187,7 @@ async function addRecipe() {
     const formData = new FormData(form);
     
     // חילוץ והמרה למספרים בלבד
-    const categoryId = parseInt(formData.get('category_id')) || 0;
+    const categoryId = normalizeCategoryId(formData.get('category_id'));
     const prepTimeValue = parseInt(formData.get('prep_time')) || parseInt(formData.get('prep_time_minutes')) || 0;
     const servingsValue = parseInt(formData.get('servings')) || 0;
 
@@ -200,12 +236,12 @@ async function editRecipe(id) {
         const submitBtn = form.querySelector('button[type="submit"]');
 
         form.elements.name.value = recipe.name || '';
-        // שינוי קריטי: שימוש ב-category_id בלבד
-        form.elements.category_id.value = recipe.category_id || ''; 
+        const selectedCategoryId = normalizeCategoryId(recipe.category_id ?? recipe.category ?? recipe.category_name);
+        form.elements.category_id.value = selectedCategoryId ? String(selectedCategoryId) : '';
         form.elements.description.value = recipe.description || '';
-        form.elements.ingredients.value = Array.isArray(recipe.ingredients) ? recipe.ingredients.join('\n') : (recipe.ingredients || '');
+        form.elements.ingredients.value = normalizeIngredients(recipe.ingredients).join('\n');
         form.elements.instructions.value = recipe.instructions || '';
-        form.elements.prep_time.value = recipe.prep_time_minutes || recipe.prep_time || '';
+        form.elements.prep_time.value = recipe.prep_time_minutes || '';
         form.elements.servings.value = recipe.servings || '';
         form.elements.image_url.value = recipe.image_url || '';
 
@@ -229,13 +265,13 @@ async function testUpdateRecipe(id) {
         const form = document.getElementById('add-recipe-form');
         const formData = new FormData(form);
 
-        const categoryId = parseInt(formData.get('category_id')) || 0;
+        const categoryId = normalizeCategoryId(formData.get('category_id'));
         const prepTimeValue = parseInt(formData.get('prep_time')) || parseInt(formData.get('prep_time_minutes')) || 0;
 
         const updatedData = {
             name: formData.get('name') || "",
             description: formData.get('description') || "",
-            ingredients: formData.get('ingredients') ? formData.get('ingredients').split('\n').map(i => i.trim()).filter(i => i.length > 0) : [],
+            ingredients: normalizeIngredients(formData.get('ingredients')),
             instructions: formData.get('instructions') || "",
             prep_time_minutes: prepTimeValue,
             servings: parseInt(formData.get('servings')) || 0,
@@ -292,9 +328,13 @@ async function sendChatMessage() {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-async function chooseCategory(categoryName) {
+async function chooseCategory(categorySelector) {
+    const categoryId = normalizeCategoryId(categorySelector);
+    const categoryName = categoryId ? CATEGORY_BY_ID[categoryId] : String(categorySelector ?? '').trim();
+
     try {
-        const response = await fetch(`${API_BASE_URL}/recipes/category/${categoryName}`);
+        const filterValue = categoryId || categoryName;
+        const response = await fetch(`${API_BASE_URL}/recipes/category/${encodeURIComponent(filterValue)}`);
         if (!response.ok) throw new Error('שגיאה בתקשורת עם השרת');
 
         const filteredRecipes = await response.json();
@@ -303,7 +343,7 @@ async function chooseCategory(categoryName) {
         if (filteredRecipes.length === 0) {
             document.getElementById('category-recipes-container').innerHTML = `
                 <div class="empty-state">
-                    <p>עדיין אין מתכונים בקטגוריית ${categoryName} 🥣</p>
+                    <p>עדיין אין מתכונים בקטגוריית ${categoryName || categorySelector} 🥣</p>
                 </div>`;
             return;
         }
