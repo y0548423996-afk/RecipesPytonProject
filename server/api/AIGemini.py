@@ -1,24 +1,25 @@
 # file: api_gemini.py
 import os
+
 from fastapi import HTTPException
 from google import genai
 
-API_KEY = os.environ.get("API_KEY")
+API_KEY = (
+    os.environ.get("GEMINI_API_KEY")
+    or os.environ.get("API_KEY")
+    or os.environ.get("GOOGLE_API_KEY")
+)
 
 
 def ask_gemini_baking(question: str) -> str:
-    # 1. בדיקה שהמפתח מוגדר בשרת
     if not API_KEY:
         raise HTTPException(
             status_code=500,
-            detail="API_KEY is missing in environment variables",
+            detail="Gemini API key is missing in environment variables",
         )
 
     try:
-        # 2. חיבור ל-Google AI בעזרת הספריה הרשמית
         client = genai.Client(api_key=API_KEY)
-
-        # 3. שליחת השאלה לקבלת תשובה
         response = client.models.generate_content(
             model="gemini-2.5-flash",
             contents=question,
@@ -30,9 +31,7 @@ def ask_gemini_baking(question: str) -> str:
                 )
             },
         )
-
         return response.text
-
     except Exception as e:
         print(f"Gemini SDK Error: {e}")
         raise HTTPException(
