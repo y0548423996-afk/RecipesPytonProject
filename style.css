@@ -198,7 +198,14 @@ header {
     z-index: 100;
     border: 1px solid var(--linen);
 }
-
+.dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: 0;
+    left: 0;
+    height: 10px;
+}
 .dropdown:hover .dropdown-menu {
     display: block;
 }
