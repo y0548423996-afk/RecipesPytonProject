@@ -303,7 +303,7 @@ async function chooseCategory(categoryName) {
         if (filteredRecipes.length === 0) {
             document.getElementById('category-recipes-container').innerHTML = `
                 <div class="empty-state">
-                    <p>עדיין אין מתכונים בקטגוריית ${categoryName} 🥣</p>
+                    <p>לא נמצא מתכון תואם בקטגוריית ${categoryName} 🥣</p>
                 </div>`;
             return;
         }
