@@ -58,11 +58,8 @@ def get_recipe(id: int):
 
 @app.get("/recipes/category/{category_name}")
 def get_recipe_category(category_name: str):
-    try:
-        recipes = get_recipes_by_category(category_name)
-        if recipes is None or len(recipes) == 0:
-            raise KeyError(f"לא נמצאו מתכונים בקטגוריה {category_name}")
-        return recipes
+       try:
+        return get_recipes_by_category(category_name) or []
     except Exception as e:
         handle_exception(e)
 
